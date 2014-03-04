@@ -1,18 +1,20 @@
 <!doctype html>
-<html lang="en">
+<html ng-app="movieApp" lang="en">
 <head>
   <title>Movies</title>
-  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
   <script src="test.js"></script>
   <meta charset="UTF-8">
 </head>
 <body>
-  <form>
-    <h1>Search</h1>
-    <input type="text" name="somefield" value="matrix">
-    <button>Search</button>
-  </form>
-  <h1>Results</h1>
-  <section class="result"></section>
+  <main ng-controller="MoviePanel">
+    <form ng-submit="search()" autofocus="autofocus">
+      <h1>Search</h1>
+      <input type="text" name="somefield" value="matrix">
+      <button>Search</button>
+    </form>
+    <h1>Results</h1>
+    <section class="result"></section>
+  </main>
 </body>
 </html>
