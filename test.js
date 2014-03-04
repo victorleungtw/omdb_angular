@@ -2,17 +2,33 @@
 (function() {
   "use strict";
   $(function() {
+    $("input").focus();
     return $("form").on("submit", function(event) {
-      var searchTerm;
+      var movieData, searchTerm;
       event.preventDefault();
       searchTerm = $("input").val();
-      return $.ajax({
+      movieData = $.ajax({
         url: "http://www.omdbapi.com/",
         method: "get",
         data: {
           s: searchTerm
         },
         dataType: "json"
+      });
+      return movieData.done(function(data) {
+        var li, movie, _i, _len, _ref, _results;
+        $("input").val("");
+        $(".result").html("");
+        _ref = data["Search"];
+        _results = [];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          movie = _ref[_i];
+          console.log(data);
+          console.log(movie.Title);
+          li = $("<li>" + movie.Title + "</li>");
+          _results.push($(".result").append(li));
+        }
+        return _results;
       });
     });
   });
