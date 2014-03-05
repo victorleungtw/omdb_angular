@@ -2,9 +2,10 @@
 <html ng-app="movieApp" lang="en">
 <head>
   <title>Movies</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/stylesheet.css" media="all">
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
   <script src="test.js"></script>
-  <meta charset="UTF-8">
 </head>
 <body>
   <main ng-controller="MoviePanel">
@@ -19,7 +20,10 @@
         <li ng-repeat="amovie in movieList">
           {{ amovie.Title }} <em>({{ amovie.Year }})</em>
         </li>
-    </ol>
+      </ol>
+      <div ng-hide="loadingGif">
+        <img src="img/loading.GIF" alt="Loading">
+      </div>
     </section>
   </main>
 </body>

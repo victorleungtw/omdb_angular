@@ -5,10 +5,14 @@
 class MoviePanel
   constructor: (@$scope, @$http) ->
     $scope.searchInput = "matrix"
+    $scope.loadingGif = true
 
     $scope.search = ->
       console.log($scope.searchInput)
       if $scope.searchInput
+        $scope.movieList = []
+        $scope.loadingGif = false
+
         searchTerm = $scope.searchInput
         console.log searchTerm
 
@@ -24,6 +28,7 @@ class MoviePanel
         )
 
         results = (data) ->
+          $scope.loadingGif = true
           unless data.Response == 'False'
             $scope.movieList = []
             for movie in data["Search"]

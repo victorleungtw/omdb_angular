@@ -10,10 +10,13 @@
       this.$scope = $scope;
       this.$http = $http;
       $scope.searchInput = "matrix";
+      $scope.loadingGif = true;
       $scope.search = function() {
         var results, searchTerm;
         console.log($scope.searchInput);
         if ($scope.searchInput) {
+          $scope.movieList = [];
+          $scope.loadingGif = false;
           searchTerm = $scope.searchInput;
           console.log(searchTerm);
           $http({
@@ -30,6 +33,7 @@
           });
           return results = function(data) {
             var movie, _i, _len, _ref, _results;
+            $scope.loadingGif = true;
             if (data.Response !== 'False') {
               $scope.movieList = [];
               _ref = data["Search"];
