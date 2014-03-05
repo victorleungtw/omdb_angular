@@ -10,8 +10,8 @@ Built with:
 
 To-do:
 * Finish search button/submit functionality
-~~Filter out redundant things like title, poster, etc. from movie information~~
+* ~~Filter out redundant things like title, poster, etc. from movie information~~
 * Keep search suggestions from moving the movie information below it
-~~Allow arrow key movement through search suggestions~~
+* ~~Allow arrow key movement through search suggestions~~
 * Make it look better
 * Clean up code
