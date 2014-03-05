@@ -1,3 +1,7 @@
+body {
+  margin: 5px 20px;
+}
+
 img {
   position: absolute;
   right: 10%;
@@ -6,6 +10,20 @@ img {
   padding:5px;
   border:1px solid gray;
   margin: 5px 20px 5px 0px;
+}
+
+.search-drop-result:hover {
+  background-color: #ccc;
+  cursor: pointer;
+  cursor: hand;
+  position: static;
+}
+
+.movie-info {
+  padding: 5px 15px;
+  position: static;
+  background-color: rgba(0, 0, 0, 0);
+  width: 60%;
 }
 
 #search-drop-down {
@@ -25,22 +43,4 @@ img {
   border-radius: 4px;
   -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
           box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
-}
-
-.search-drop-result:hover {
-  background-color: #ccc;
-  cursor: pointer;
-  cursor: hand;
-  position: static;
-}
-
-.movie-info {
-  padding: 5px 15px;
-  position: static;
-  background-color: rgba(0, 0, 0, 0);
-  width: 60%;
-}
-
-body {
-  margin: 5px 20px;
 }
