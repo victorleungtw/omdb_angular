@@ -12,7 +12,7 @@ img {
   margin: 5px 20px 5px 0px;
 }
 
-.search-drop-result:hover {
+.hover {
   background-color: #ccc;
   cursor: pointer;
   cursor: hand;

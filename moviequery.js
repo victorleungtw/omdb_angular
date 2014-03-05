@@ -7,16 +7,58 @@
 
   MoviePanel = (function() {
     function MoviePanel($scope, $http) {
+      var searchNum;
       this.$scope = $scope;
       this.$http = $http;
       $scope.searchInput = "";
       $scope.dropDownInvisible = true;
       $scope.movieInfoInvisible = true;
+      searchNum = 0;
+      $scope.movieList = [];
+      $scope.keyPress = function(event) {
+        switch (event.which) {
+          case 40:
+            $('.' + searchNum).removeClass('hover');
+            searchNum += 1;
+            if (searchNum > $scope.movieList.length) {
+              searchNum = 0;
+            }
+            $('.' + searchNum).addClass('hover');
+            break;
+          case 38:
+            $('.' + searchNum).removeClass('hover');
+            searchNum -= 1;
+            if (searchNum < 0) {
+              searchNum = $scope.movieList.length;
+            }
+            $('.' + searchNum).addClass('hover');
+        }
+      };
+      $scope.mouseOn = function(event, num) {
+        console.log(event);
+        console.log("Testing " + event.fromElement.localName);
+        console.log(num);
+        if (num) {
+          $('.' + searchNum).removeClass('hover');
+          searchNum = num;
+        }
+        $('.' + searchNum).addClass('hover');
+      };
+      $scope.mouseOff = function(event, num) {
+        console.log(event);
+        console.log("Testing " + event.fromElement.localName);
+        console.log(num);
+        if (num) {
+          searchNum = num;
+        }
+        $('.' + searchNum).removeClass('hover');
+      };
       $scope.search = function() {
         var results, searchTerm;
         if ($scope.searchInput) {
           $scope.movieList = [];
           $scope.dropDownInvisible = true;
+          searchNum = 0;
           searchTerm = $scope.searchInput;
           $http({
             url: "http://www.omdbapi.com/",
@@ -31,39 +73,67 @@
             return $scope.status = status;
           });
           return results = function(data) {
-            var movie, _i, _len, _ref, _results;
+            var movie, movieNum, _i, _len, _ref, _results;
             $scope.loadingGif = true;
             if (data.Response !== 'False') {
               $scope.movieList = [];
               $scope.dropDownInvisible = false;
+              movieNum = 1;
               _ref = data["Search"];
               _results = [];
               for (_i = 0, _len = _ref.length; _i < _len; _i++) {
                 movie = _ref[_i];
-                _results.push($scope.movieList.push(movie));
+                movie.Num = movieNum;
+                $scope.movieList.push(movie);
+                _results.push(movieNum += 1);
               }
               return _results;
             }
           };
         }
       };
-      $scope.searchPick = function(movie) {
+      $scope.searchPick = function(movie, mode) {
         var imdbInfo;
+        console.log(movie + "TEST" + mode);
         $scope.movieInfo = {};
         $scope.dropDownInvisible = true;
         $scope.movieInfoInvisible = false;
-        $http({
-          url: "http://www.omdbapi.com/",
-          method: "get",
-          params: {
-            i: movie.imdbID
-          }
-        }).success(function(data, status, headers, config) {
-          console.log("data: " + data + "status: " + status + "headers:" + headers + "config: " + config + "imdbID: " + movie.imdbID);
-          return imdbInfo(data);
-        }).error(function(data, status, headers, config) {
-          return $scope.status = status;
-        });
+        if (mode === 'basic') {
+          $http({
+            url: "http://www.omdbapi.com/",
+            method: "get",
+            params: {
+              s: movie
+            }
+          }).success(function(data, status, headers, config) {
+            var i, n, _i, _len;
+            console.log("data: " + data + "status: " + status + "headers:" + headers + "config: " + config + "imdbID: " + movie.imdbID);
+            n = {};
+            for (_i = 0, _len = data.length; _i < _len; _i++) {
+              i = data[_i];
+              n || (n = i);
+              console.log(i);
+            }
+            console.log(n);
+            return imdbInfo(n);
+          }).error(function(data, status, headers, config) {
+            return $scope.status = status;
+          });
+        } else {
+          $http({
+            url: "http://www.omdbapi.com/",
+            method: "get",
+            params: {
+              i: movie.imdbID,
+              plot: 'full'
+            }
+          }).success(function(data, status, headers, config) {
+            console.log("data: " + data + "status: " + status + "headers:" + headers + "config: " + config + "imdbID: " + movie.imdbID);
+            return imdbInfo(data);
+          }).error(function(data, status, headers, config) {
+            return $scope.status = status;
+          });
+        }
         return imdbInfo = function(data) {
           var info, key, _results;
           _results = [];
