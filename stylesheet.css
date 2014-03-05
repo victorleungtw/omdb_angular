@@ -1,11 +1,17 @@
 img {
-  width: 64px;
+  position: absolute;
+  right: 10%;
+  z-index: 999
+  width:200px;
+  padding:5px;
+  border:1px solid gray;
+  margin: 5px 20px 5px 0px;
 }
 
 #search-drop-down {
   top: 100%;
   left: 0;
-  z-index: 1000;
+  z-index: 10;
   float: left;
   min-width: 160px;
   padding: 5px 0;
@@ -25,4 +31,16 @@ img {
   background-color: #ccc;
   cursor: pointer;
   cursor: hand;
+  position: static;
+}
+
+.movie-info {
+  padding: 5px 15px;
+  position: static;
+  background-color: rgba(0, 0, 0, 0);
+  width: 60%;
+}
+
+body {
+  margin: 5px 20px;
 }

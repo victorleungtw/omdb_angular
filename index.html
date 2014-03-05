@@ -27,12 +27,13 @@
           </li>
         </ul>
       </div>
-      <div ng-hide="movieInfoInvisible">
+      <ul class="list-group" ng-hide="movieInfoInvisible">
         <h1>{{movieInfo.Title}}</h1>
-        <li ng-repeat="(key, info) in movieInfo">
-          {{ key }} {{ info }}
+        <img src="{{movieInfo.Poster}}">
+        <li class="list-group-item movie-info" ng-repeat="(key, info) in movieInfo">
+          <strong>{{ key }}:</strong> {{ info }}
         </li>
-      </div>
+      </ul>
     </form>
     <section class="result">
 
