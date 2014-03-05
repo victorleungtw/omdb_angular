@@ -7,40 +7,44 @@
 
   MoviePanel = (function() {
     function MoviePanel($scope, $http) {
-      var data, results, searchTerm;
       this.$scope = $scope;
       this.$http = $http;
-      searchTerm = "";
-      data = {};
-      results = {};
+      $scope.searchInput = "matrix";
       $scope.search = function() {
-        return searchTerm = $("input").val();
-      };
-      $http({
-        url: "http://www.omdbapi.com/",
-        method: "get",
-        data: {
-          s: searchTerm
-        },
-        dataType: "json"
-      }).success(function(data, status, headers, config) {
-        return results(data);
-      }).error(function(data, status, headers, config) {
-        return $scope.status = status;
-      });
-      results(data)(function() {
-        var li, movie, _i, _len, _ref, _results;
-        _ref = data["Search"];
-        _results = [];
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          movie = _ref[_i];
-          console.log(data);
-          console.log(movie.Title);
-          li = $("<li>" + movie.Title + "</li>");
-          _results.push($(".result").append(li));
+        var results, searchTerm;
+        console.log($scope.searchInput);
+        if ($scope.searchInput) {
+          searchTerm = $scope.searchInput;
+          console.log(searchTerm);
+          $http({
+            url: "http://www.omdbapi.com/",
+            method: "get",
+            params: {
+              s: searchTerm
+            }
+          }).success(function(data, status, headers, config) {
+            console.log("data: " + data + "status: " + status + "headers:" + headers + "config: " + config);
+            return results(data);
+          }).error(function(data, status, headers, config) {
+            return $scope.status = status;
+          });
+          return results = function(data) {
+            var movie, _i, _len, _ref, _results;
+            if (data.Response !== 'False') {
+              $scope.movieList = [];
+              _ref = data["Search"];
+              _results = [];
+              for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                movie = _ref[_i];
+                console.log(movie);
+                console.log(movie.Title);
+                _results.push($scope.movieList.push(movie));
+              }
+              return _results;
+            }
+          };
         }
-        return _results;
-      });
+      };
     }
 
     return MoviePanel;

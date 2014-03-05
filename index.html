@@ -9,12 +9,18 @@
 <body>
   <main ng-controller="MoviePanel">
     <form ng-submit="search()" autofocus="autofocus">
-      <h1>Search</h1>
-      <input type="text" name="somefield" value="matrix">
+      <h1>Search {{searchInput}}</h1>
+      <input class="dropdown" type="text" name="somefield" ng-model="searchInput" ng-change="search()">
       <button>Search</button>
     </form>
     <h1>Results</h1>
-    <section class="result"></section>
+    <section class="result">
+      <ol class="dropdown-toggle">
+        <li ng-repeat="amovie in movieList">
+          {{ amovie.Title }} <em>({{ amovie.Year }})</em>
+        </li>
+    </ol>
+    </section>
   </main>
 </body>
 </html>

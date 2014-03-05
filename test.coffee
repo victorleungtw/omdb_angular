@@ -4,30 +4,32 @@
 
 class MoviePanel
   constructor: (@$scope, @$http) ->
-    searchTerm = ""
-    data = {}
-    results = {}
+    $scope.searchInput = "matrix"
 
     $scope.search = ->
-      searchTerm = $("input").val()
+      console.log($scope.searchInput)
+      if $scope.searchInput
+        searchTerm = $scope.searchInput
+        console.log searchTerm
 
-    $http(
-      url: "http://www.omdbapi.com/"
-      method: "get"
-      data: { s: searchTerm }
-      dataType: "json"
-    ).success( (data, status, headers, config) ->
-      results(data)
-    ).error( (data, status, headers, config) ->
-      $scope.status = status
-    )
+        $http(
+          url: "http://www.omdbapi.com/"
+          method: "get"
+          params: { s: searchTerm }
+        ).success( (data, status, headers, config) ->
+          console.log("data: " + data + "status: " + status + "headers:" + headers + "config: " + config)
+          results(data)
+        ).error( (data, status, headers, config) ->
+          $scope.status = status
+        )
 
-    results(data) ->
-      for movie in data["Search"]
-        console.log data
-        console.log movie.Title
-        li = $ "<li>" + movie.Title + "</li>"
-        $(".result").append(li)
+        results = (data) ->
+          unless data.Response == 'False'
+            $scope.movieList = []
+            for movie in data["Search"]
+              console.log movie
+              console.log movie.Title
+              $scope.movieList.push(movie)
 
 MoviePanel.$inject = ["$scope", "$http"]
 movieApp.controller "MoviePanel", MoviePanel
