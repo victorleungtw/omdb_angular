@@ -22,7 +22,7 @@
       </div> -->
       <div data-ng-hide="dropDownInvisible">
         <ul id="search-drop-down">
-          <li class="search-drop-result" data-ng-repeat="amovie in movieList" data-ng-click="searchPick($event, amovie)">
+          <li class="search-drop-result" data-ng-repeat="amovie in movieList" data-ng-click="searchPick(amovie)">
             <strong>{{ amovie.Title }}</strong> <em>({{ amovie.Year }})</em>
           </li>
         </ul>
@@ -30,7 +30,7 @@
       <ul class="list-group" data-ng-hide="movieInfoInvisible">
         <h1>{{movieInfo.Title}}</h1>
         <img src="{{movieInfo.Poster}}" alt="Movie Poster">
-        <li class="list-group-item movie-info" data-ng-repeat="(key, info) in movieInfo">
+        <li class="list-group-item movie-info" data-ng-repeat="(key, info) in infoFilter(movieInfo)">
           <strong>{{ key }}:</strong> {{ info }}
         </li>
       </ul>

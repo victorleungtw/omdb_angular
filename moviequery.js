@@ -47,7 +47,7 @@
           };
         }
       };
-      $scope.searchPick = function($event, movie) {
+      $scope.searchPick = function(movie) {
         var imdbInfo;
         $scope.movieInfo = {};
         $scope.dropDownInvisible = true;
@@ -73,6 +73,25 @@
           }
           return _results;
         };
+      };
+      $scope.infoFilter = function(mInfo) {
+        var info, key;
+        if (mInfo) {
+          $scope.arr = {};
+          for (key in mInfo) {
+            info = mInfo[key];
+            if (key !== 'Poster' && key !== 'Title' && key !== 'imdbID' && key !== 'Response' && key !== 'Release' && key !== null) {
+              if (key === 'imdbRating' || key === 'imdbVotes') {
+                key = key.slice(0, 4).toUpperCase() + ' ' + key.slice(4);
+              }
+              if (key === 'Type') {
+                info = info[0].toUpperCase();
+              }
+              $scope.arr[key] = info;
+            }
+          }
+          return $scope.arr;
+        }
       };
     }
 

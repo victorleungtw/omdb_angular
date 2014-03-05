@@ -36,7 +36,7 @@ class MoviePanel
             for movie in data["Search"]
               $scope.movieList.push(movie)
 
-    $scope.searchPick = ($event, movie) ->
+    $scope.searchPick = (movie) ->
       $scope.movieInfo = {}
       $scope.dropDownInvisible = true
       $scope.movieInfoInvisible = false
@@ -55,6 +55,16 @@ class MoviePanel
       imdbInfo = (data) ->
         for key, info of data
           $scope.movieInfo[key] = info
+
+    $scope.infoFilter = (mInfo) ->
+      if mInfo
+        $scope.arr = {}
+        for key, info of mInfo
+          if key != 'Poster' && key != 'Title' && key != 'imdbID' && key != 'Response' && key != 'Release' && key != null
+            if key == 'imdbRating' || key == 'imdbVotes' then key = (key[0..3].toUpperCase() + ' ' + key[4..-1])
+            if key == 'Type' then info = info[0].toUpperCase()
+            $scope.arr[key] = info
+        $scope.arr
 
 MoviePanel.$inject = ["$scope", "$http"]
 movieApp.controller "MoviePanel", MoviePanel
