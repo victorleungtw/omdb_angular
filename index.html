@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="movieApp" lang="en">
+<html data-ng-app="movieApp" lang="en">
 <head>
   <title>Movies</title>
   <meta charset="UTF-8">
@@ -12,32 +12,29 @@
 </head>
 
 <body>
-  <main ng-controller="MoviePanel">
-    <form ng-submit="search()" autofocus="autofocus">
+  <main data-ng-controller="MoviePanel">
+    <form data-ng-submit="search()">
       <h1>Search</h1>
-      <input type="text" name="somefield" ng-model="searchInput" ng-change="search()">
+      <input type="text" name="search-field" data-ng-model="searchInput" data-ng-change="search()" autofocus="autofocus">
       <button>Search</button>
-<!--       <div ng-hide="loadingGif">
+      <!-- <div ng-hide="loadingGif">
         <img src="img/loading.GIF" alt="Loading">
       </div> -->
-      <div ng-hide="dropDownInvisible">
+      <div data-ng-hide="dropDownInvisible">
         <ul id="search-drop-down">
-          <li class="search-drop-result" ng-repeat="amovie in movieList" ng-click="searchPick($event, amovie)">
+          <li class="search-drop-result" data-ng-repeat="amovie in movieList" data-ng-click="searchPick($event, amovie)">
             <strong>{{ amovie.Title }}</strong> <em>({{ amovie.Year }})</em>
           </li>
         </ul>
       </div>
-      <ul class="list-group" ng-hide="movieInfoInvisible">
+      <ul class="list-group" data-ng-hide="movieInfoInvisible">
         <h1>{{movieInfo.Title}}</h1>
-        <img src="{{movieInfo.Poster}}">
-        <li class="list-group-item movie-info" ng-repeat="(key, info) in movieInfo">
+        <img src="{{movieInfo.Poster}}" alt="Movie Poster">
+        <li class="list-group-item movie-info" data-ng-repeat="(key, info) in movieInfo">
           <strong>{{ key }}:</strong> {{ info }}
         </li>
       </ul>
     </form>
-    <section class="result">
-
-    </section>
   </main>
 </body>
 

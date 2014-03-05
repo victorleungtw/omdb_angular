@@ -9,19 +9,15 @@
     function MoviePanel($scope, $http) {
       this.$scope = $scope;
       this.$http = $http;
-      $scope.searchInput = "matrix";
-      $scope.loadingGif = true;
+      $scope.searchInput = "";
       $scope.dropDownInvisible = true;
       $scope.movieInfoInvisible = true;
       $scope.search = function() {
         var results, searchTerm;
-        console.log($scope.searchInput);
         if ($scope.searchInput) {
           $scope.movieList = [];
-          $scope.loadingGif = false;
           $scope.dropDownInvisible = true;
           searchTerm = $scope.searchInput;
-          console.log(searchTerm);
           $http({
             url: "http://www.omdbapi.com/",
             method: "get",
@@ -44,8 +40,6 @@
               _results = [];
               for (_i = 0, _len = _ref.length; _i < _len; _i++) {
                 movie = _ref[_i];
-                console.log(movie);
-                console.log(movie.Title);
                 _results.push($scope.movieList.push(movie));
               }
               return _results;
@@ -57,9 +51,6 @@
         var imdbInfo;
         $scope.movieInfo = {};
         $scope.dropDownInvisible = true;
-        console.log("Working!");
-        console.log($event, movie);
-        console.log(movie.imdbID);
         $scope.movieInfoInvisible = false;
         $http({
           url: "http://www.omdbapi.com/",
@@ -74,14 +65,13 @@
           return $scope.status = status;
         });
         return imdbInfo = function(data) {
-          var info, key;
-          console.log("This is the data " + data.Title);
+          var info, key, _results;
+          _results = [];
           for (key in data) {
             info = data[key];
-            $scope.movieInfo[key] = info;
-            console.log(key, info);
+            _results.push($scope.movieInfo[key] = info);
           }
-          return console.log($scope.movieInfo);
+          return _results;
         };
       };
     }
