@@ -11,12 +11,15 @@
       this.$http = $http;
       $scope.searchInput = "matrix";
       $scope.loadingGif = true;
+      $scope.dropDownInvisible = true;
+      $scope.movieInfoInvisible = true;
       $scope.search = function() {
         var results, searchTerm;
         console.log($scope.searchInput);
         if ($scope.searchInput) {
           $scope.movieList = [];
           $scope.loadingGif = false;
+          $scope.dropDownInvisible = true;
           searchTerm = $scope.searchInput;
           console.log(searchTerm);
           $http({
@@ -36,6 +39,7 @@
             $scope.loadingGif = true;
             if (data.Response !== 'False') {
               $scope.movieList = [];
+              $scope.dropDownInvisible = false;
               _ref = data["Search"];
               _results = [];
               for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -48,6 +52,37 @@
             }
           };
         }
+      };
+      $scope.searchPick = function($event, movie) {
+        var imdbInfo;
+        $scope.movieInfo = {};
+        $scope.dropDownInvisible = true;
+        console.log("Working!");
+        console.log($event, movie);
+        console.log(movie.imdbID);
+        $scope.movieInfoInvisible = false;
+        $http({
+          url: "http://www.omdbapi.com/",
+          method: "get",
+          params: {
+            i: movie.imdbID
+          }
+        }).success(function(data, status, headers, config) {
+          console.log("data: " + data + "status: " + status + "headers:" + headers + "config: " + config + "imdbID: " + movie.imdbID);
+          return imdbInfo(data);
+        }).error(function(data, status, headers, config) {
+          return $scope.status = status;
+        });
+        return imdbInfo = function(data) {
+          var info, key;
+          console.log("This is the data " + data.Title);
+          for (key in data) {
+            info = data[key];
+            $scope.movieInfo[key] = info;
+            console.log(key, info);
+          }
+          return console.log($scope.movieInfo);
+        };
       };
     }
 

@@ -1,30 +1,43 @@
-<!doctype html>
+<!DOCTYPE html>
 <html ng-app="movieApp" lang="en">
 <head>
   <title>Movies</title>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="/stylesheet.css" media="all">
+  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
   <script src="test.js"></script>
+  <link rel="stylesheet" href="/stylesheet.css" media="all">
 </head>
+
 <body>
   <main ng-controller="MoviePanel">
     <form ng-submit="search()" autofocus="autofocus">
-      <h1>Search {{searchInput}}</h1>
-      <input class="dropdown" type="text" name="somefield" ng-model="searchInput" ng-change="search()">
+      <h1>Search</h1>
+      <input type="text" name="somefield" ng-model="searchInput" ng-change="search()">
       <button>Search</button>
-    </form>
-    <h1>Results</h1>
-    <section class="result">
-      <ol class="dropdown-toggle">
-        <li ng-repeat="amovie in movieList">
-          {{ amovie.Title }} <em>({{ amovie.Year }})</em>
-        </li>
-      </ol>
-      <div ng-hide="loadingGif">
+<!--       <div ng-hide="loadingGif">
         <img src="img/loading.GIF" alt="Loading">
+      </div> -->
+      <div ng-hide="dropDownInvisible">
+        <ul id="search-drop-down">
+          <li class="search-drop-result" ng-repeat="amovie in movieList" ng-click="searchPick($event, amovie)">
+            <strong>{{ amovie.Title }}</strong> <em>({{ amovie.Year }})</em>
+          </li>
+        </ul>
       </div>
+      <div ng-hide="movieInfoInvisible">
+        <h1>{{movieInfo.Title}}</h1>
+        <li ng-repeat="(key, info) in movieInfo">
+          {{ key }} {{ info }}
+        </li>
+      </div>
+    </form>
+    <section class="result">
+
     </section>
   </main>
 </body>
+
 </html>
