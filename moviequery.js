@@ -93,47 +93,37 @@
         }
       };
       $scope.searchPick = function(movie, mode) {
-        var imdbInfo;
+        var imdbInfo, para;
         console.log(movie + "TEST" + mode);
         $scope.movieInfo = {};
         $scope.dropDownInvisible = true;
         $scope.movieInfoInvisible = false;
         if (mode === 'basic') {
-          $http({
-            url: "http://www.omdbapi.com/",
-            method: "get",
-            params: {
-              s: movie
-            }
-          }).success(function(data, status, headers, config) {
-            var i, n, _i, _len;
-            console.log("data: " + data + "status: " + status + "headers:" + headers + "config: " + config + "imdbID: " + movie.imdbID);
-            n = {};
-            for (_i = 0, _len = data.length; _i < _len; _i++) {
-              i = data[_i];
-              n || (n = i);
-              console.log(i);
-            }
-            console.log(n);
-            return imdbInfo(n);
-          }).error(function(data, status, headers, config) {
-            return $scope.status = status;
-          });
+          para = {
+            s: movie
+          };
         } else {
-          $http({
-            url: "http://www.omdbapi.com/",
-            method: "get",
-            params: {
-              i: movie.imdbID,
-              plot: 'full'
-            }
-          }).success(function(data, status, headers, config) {
-            console.log("data: " + data + "status: " + status + "headers:" + headers + "config: " + config + "imdbID: " + movie.imdbID);
-            return imdbInfo(data);
-          }).error(function(data, status, headers, config) {
-            return $scope.status = status;
-          });
+          para = {
+            i: movie.imdbID,
+            plot: 'full'
+          };
         }
+        $http({
+          url: "http://www.omdbapi.com/",
+          method: "get",
+          params: para
+        }).success(function(data, status, headers, config) {
+          console.log("data: " + data + "status: " + status + "headers:" + headers + "config: " + config + "imdbID: " + movie.imdbID);
+          if (mode === 'basic') {
+            console.log('Basic route: ' + data['Search'][0]);
+            debugger;
+            return imdbInfo(data['Search'][0]);
+          } else {
+            return imdbInfo(data);
+          }
+        }).error(function(data, status, headers, config) {
+          return $scope.status = status;
+        });
         return imdbInfo = function(data) {
           var info, key, _results;
           _results = [];

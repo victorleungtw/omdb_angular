@@ -84,33 +84,25 @@ class MoviePanel
       $scope.movieInfoInvisible = false
 
       if mode == 'basic'
-        $http(
-          url: "http://www.omdbapi.com/"
-          method: "get"
-          params: { s: movie }
-        ).success( (data, status, headers, config) ->
-          console.log("data: " + data + "status: " + status + "headers:" + headers + "config: " + config + "imdbID: " + movie.imdbID)
-          n = {}
-          for i in data
-            n ||= i
-            console.log(i)
-          console.log(n)
-          imdbInfo(n)
-        ).error( (data, status, headers, config) ->
-          $scope.status = status
-        )
-
+        para = { s: movie }
       else
-        $http(
-          url: "http://www.omdbapi.com/"
-          method: "get"
-          params: { i: movie.imdbID, plot: 'full' }
-        ).success( (data, status, headers, config) ->
-          console.log("data: " + data + "status: " + status + "headers:" + headers + "config: " + config + "imdbID: " + movie.imdbID)
+        para = { i: movie.imdbID, plot: 'full' }
+
+      $http(
+        url: "http://www.omdbapi.com/"
+        method: "get"
+        params: para
+      ).success( (data, status, headers, config) ->
+        console.log("data: " + data + "status: " + status + "headers:" + headers + "config: " + config + "imdbID: " + movie.imdbID)
+        if mode == 'basic'
+          console.log('Basic route: ' + data['Search'][0])
+          debugger
+          imdbInfo(data['Search'][0])
+        else
           imdbInfo(data)
-        ).error( (data, status, headers, config) ->
-          $scope.status = status
-        )
+      ).error( (data, status, headers, config) ->
+        $scope.status = status
+      )
 
       imdbInfo = (data) ->
         for key, info of data

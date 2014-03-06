@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html data-ng-app="movieApp" lang="en">
+
 <head>
   <title>Movies</title>
   <meta charset="UTF-8">
@@ -8,32 +9,37 @@
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
   <script src="moviequery.js"></script>
+  <script src="background.js"></script>
   <link rel="stylesheet" href="/stylesheet.css" media="all">
+  <link href='http://fonts.googleapis.com/css?family=Antic+Didone' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
   <main data-ng-controller="MoviePanel" ng-keydown="keyPress($event)">
     <form data-ng-submit="searchPick(searchInput, 'basic')">
-      <h1>Search {{searchInput}}</h1>
-      <input type="text" name="search-field" data-ng-model="searchInput" data-ng-change="search()" autofocus="autofocus" >
-      <button data-ng-click="search()">Search</button>
-      <!-- <div ng-hide="loadingGif">
+      <div class="search">
+        <input type="search" placeholder="Search for films here..." name="search-field" data-ng-model="searchInput" data-ng-change="search()" autofocus="autofocus">
+        <button type="submit" data-ng-click="search()">Search</button>
+        <!-- <div ng-hide="loadingGif">
         <img src="img/loading.GIF" alt="Loading">
-      </div> -->
-      <div data-ng-hide="dropDownInvisible">
-        <ul id="search-drop-down">
-          <li class="search-drop-result" data-ng-model="searchClass" data-ng-repeat="amovie in movieList" data-ng-click="searchPick(amovie, 'advanced')">
-            <p class="{{amovie.Num}}" ng-mouseenter="mouseOn($event, amovie.Num)" ng-mouseleave="mouseOff($event, amovie.Num)"><strong>{{ amovie.Title }}</strong> <em>({{ amovie.Year }})</em></p>
+        </div> -->
+        <div data-ng-hide="dropDownInvisible">
+          <ul id="search-drop-down">
+            <li class="search-drop-result" data-ng-model="searchClass" data-ng-repeat="amovie in movieList" data-ng-click="searchPick(amovie, 'advanced')">
+              <p class="{{amovie.Num}}" ng-mouseenter="mouseOn($event, amovie.Num)" ng-mouseleave="mouseOff($event, amovie.Num)"><strong>{{ amovie.Title }}</strong> <em>({{ amovie.Year }})</em></p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="box">
+        <ul class="list-group" data-ng-hide="movieInfoInvisible">
+          <h2>{{movieInfo.Title}}</h2>
+          <img src="{{movieInfo.Poster}}" alt="Movie Poster">
+          <li class="list-group-item movie-info" data-ng-repeat="(key, info) in infoFilter(movieInfo)">
+            <strong>{{ key }}:</strong> {{ info }}
           </li>
         </ul>
       </div>
-      <ul class="list-group" data-ng-hide="movieInfoInvisible">
-        <h1>{{movieInfo.Title}}</h1>
-        <img src="{{movieInfo.Poster}}" alt="Movie Poster">
-        <li class="list-group-item movie-info" data-ng-repeat="(key, info) in infoFilter(movieInfo)">
-          <strong>{{ key }}:</strong> {{ info }}
-        </li>
-      </ul>
     </form>
   </main>
 </body>
