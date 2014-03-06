@@ -4,10 +4,9 @@ A simple tool using the OMDB API to search for a movie by title and return its i
 Has a dynamically updated search field.
 
 Built with:
+
 **Angular**
-
 **Coffeescript**
-
 **Bootstrap**
 
 

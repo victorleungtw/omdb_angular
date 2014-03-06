@@ -27,6 +27,12 @@ class MoviePanel
             searchNum = $scope.movieList.length
           $('.' + searchNum).addClass('hover')
           return
+        when 13
+          debugger
+          if searchNum == 0
+            $scope.searchPick($scope.searchInput, 'basic')
+          else
+            $scope.searchPick($scope.movieList[searchNum - 1], 'advanced')
 
     $scope.mouseOn = (event, num) ->
       console.log(event)
