@@ -1,103 +1,41 @@
 body {
-  margin: 5px 20px;
-  background: no-repeat center center fixed;
-  background-size:cover;
-
+  font-family: 'Lato', sans-serif;
+  background-color: grey;
 }
 
-img {
-  position: absolute;
-  left: 65%;
-  z-index: 999
-  width:200px;
-  padding:5px;
-  border:1px solid gray;
-  margin: 5px 20px 5px 0px;
+.row {
+  margin: 1em 0 1em;
 }
 
-.hover {
-  background-color: hsla(0, 0%, 100%, 0.42);
-  cursor: pointer;
-  cursor: hand;
-  position: static;
+.search-field {
+  width: 100%;
+  font-size: 2em;
+  border-radius: 10px 10px;
 }
 
-.movie-info {
-  padding: 5px 15px;
-  position: static;
-  background-color: hsla(0, 0%, 100%, 0.42);
-  width: 60%;
-}
-
-h1{
-  text-align: center;
-  background-color: hsla(0, 0%, 0%, 0.30);
-  width: auto;
-  color: hsla(0, 0%, 100%, 0.55);
-}
-
-#search-drop-down {
-  color: hsla(0, 0%, 100%, 0.55);
-  top: 100%;
-  left: 0;
-  z-index: 10;
-  float: left;
-  position: relative;
-  width: 500px;
-  padding: 5px 0;
-  margin: 2px 0 0;
-  font-size: 18px;
-  font-weight: normal;
+.movie-list {
   list-style: none;
-  background-color: hsla(0, 0%, 100%, 0.22);
-  background-clip: padding-box;
-  border: 1px solid #ccc;
-  border: 1px solid rgba(0, 0, 0, .15);
-  border-radius: 4px;
-  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
-          box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+  font-size: 1.5em;
+  color: white;
+  line-height: 2em;
+  height:
 }
 
-.search {
-  width: 500px;
-  height: 40px;
-  margin: 20px auto;
-  background: #444;
-  background: rgba(0,0,0,.2);
-  border-radius:  3px;
-  border: 1px
-  solid #fff;
+.movie-details {
+  background: white;
+  border-width: 1px;
+  border-color: hsl(0, 0%, 87%);
+  border-radius: 6px 6px;
+  padding: 1em;
+  text-align: center;
 }
+  .title {
+    font-weight: bold;
+    font-size: 1.5em;
+  }
 
-.box {
-  position: absolute;
-}
-
-.search input {
-  width: 370px;
-  padding: 8px 5px;
-  float: left;
-  color: #ccc;
-  border: 0;
-  background: transparent;
-  border-radius: 3px 0 0 3px;
-  font-size: 15px;
-}
-
-.search input:focus {
-  outline: 0;
-  background:transparent;
-}
-
-.search button {
-  font-size: 15px;
-  position: relative;
-  float: right;
-  border: 0;
-  padding: 0;
-  cursor: pointer;height: 40px;width: 120px;color: #fff;background: transparent;border-left: 1px solid #fff;border-radius: 0 3px 3px 0;}
-
-.hover .search button {background: #fff;color:#444;}
-.search button:active {box-shadow: 0px 0px 12px 0px rgba(225, 225, 225, 1);}
-
-.search button:focus {outline: 0;}
+  .plot {
+    font-weight: light;
+    font-size: 1.5em;
+    text-align: left;
+  }
